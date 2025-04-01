@@ -96,6 +96,7 @@ function showEditLiftDialog(obj) {
 
     // Helper function to safely set display
     const setDisplay = (selector, display) => {
+        console.log('setDisplay',selector,display);
         const element = content.querySelector(selector);
         if (element) {
             element.style.display = display;
@@ -128,7 +129,7 @@ function showEditLiftDialog(obj) {
     if(obj.ISFIELDTECH == 1) {
         setValue('#lift_company', 'FieldTech');
         setValue('#lift_vendor', obj.LIFTCOMPANY);
-        setDisplay('#disp_vendor', 'block');
+        setDisplay('#disp_vendor', 'table-row');
     } else {
         if (obj.LIFTCOMPANY?.trim() !== "") {
             displayPhone(obj.LIFTCOMPANY);
@@ -399,10 +400,10 @@ function updateLift(obj) {
 
 function displayPhone(p) {
     // Get elements from both the original form and modal dialog
-    const disp_vendor = document.getElementById('disp_vendor');
-    const lift_phone = document.getElementById('lift_phone');
-    const lift_vendor = document.getElementById('lift_vendor');
-    const lift_company = document.getElementById('lift_company');
+    let disp_vendor = document.getElementById('disp_vendor');
+    let lift_phone = document.getElementById('lift_phone');
+    let lift_vendor = document.getElementById('lift_vendor');
+    let lift_company = document.getElementById('lift_company');
 
     // Helper function to update phone display
     const updatePhoneDisplay = (phoneElement, phone, acctno, webURL) => {
@@ -430,24 +431,23 @@ function displayPhone(p) {
         const event = new Event('change');
         lift_vendor.dispatchEvent(event);
     }
+    console.log('old',window.getComputedStyle(disp_vendor).display);
+    console.log('old',disp_vendor.style.display);
 
+    setInterval(() => {
+        const row = document.getElementById('disp_vendor');
+        console.log('Live style:', getComputedStyle(row).display);
+      }, 500);
     // Handle vendor display visibility
     if (disp_vendor) {
-        // Force reflow
-        disp_vendor.style.cssText = 'display: none !important';
-        disp_vendor.classList.remove('hidden');
-        
         if (p === "FieldTech") {
-            // Show vendor dropdown for FieldTech
-            disp_vendor.style.cssText = 'display: table-row !important';
-            disp_vendor.classList.remove('hidden');
+            document.getElementById('disp_vendor').style.setProperty('display', 'table-row', 'important');
         } else {
-            // Hide vendor dropdown for all other cases
-            disp_vendor.style.cssText = 'display: none !important';
-            disp_vendor.classList.add('hidden');
+            document.getElementById('disp_vendor').style.setProperty('display', 'none', 'important');
         }
     }
-
+    console.log('new',window.getComputedStyle(document.getElementById('disp_vendor')).display);
+    console.log('new',document.getElementById('disp_vendor').style.display);
     // If no value or FieldTech selected, return early
     if (!p || p === "" || p === "FieldTech") {
         return;

@@ -1,4 +1,4 @@
-<cfcomponent>
+<cfcomponent displayname="Lifts" output="false" hint="Handles all lift-related operations">
     <cffunction name="getLiftInfo" output="false" access="remote" returntype="struct">
         <cfargument name="liftid" type="numeric" required="true" />
 
