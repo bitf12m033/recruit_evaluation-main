@@ -1,0 +1,17 @@
+services:
+  care:
+    image: ortussolutions/commandbox:adobe2021
+    environment:
+      - BOX_INSTALL=true
+      - cfconfig_adminPassword=commandbox
+      - CFPM_INSTALL=debugger
+      - TZ="US/Central"
+      - BOX_SERVER_APP_CFENGINE=adobe@2021.0.18+330341
+      - APP_DIR=/app
+      - DISPLAY=localhost:0.0
+      - BOX_SERVER_PROFILE=development
+    ports:
+      - 5555:8080
+      - 5556:8443
+    volumes:
+      - ./cfm:/app
