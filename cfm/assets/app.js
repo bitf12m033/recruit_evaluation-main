@@ -128,7 +128,7 @@ function showEditLiftDialog(obj) {
     if(obj.ISFIELDTECH == 1) {
         setValue('#lift_company', 'FieldTech');
         setValue('#lift_vendor', obj.LIFTCOMPANY);
-        setDisplay('#disp_vendor', 'block');
+        setDisplay('#disp_vendor', 'table-row');
     } else {
         if (obj.LIFTCOMPANY?.trim() !== "") {
             displayPhone(obj.LIFTCOMPANY);
@@ -434,16 +434,16 @@ function displayPhone(p) {
     // Handle vendor display visibility
     if (disp_vendor) {
         // Force reflow
-        disp_vendor.style.cssText = 'display: none !important';
+        disp_vendor.style.cssText = 'display: none';
         disp_vendor.classList.remove('hidden');
         
         if (p === "FieldTech") {
             // Show vendor dropdown for FieldTech
-            disp_vendor.style.cssText = 'display: table-row !important';
+            disp_vendor.style.cssText = 'display: table-row';
             disp_vendor.classList.remove('hidden');
         } else {
             // Hide vendor dropdown for all other cases
-            disp_vendor.style.cssText = 'display: none !important';
+            disp_vendor.style.cssText = 'display: none';
             disp_vendor.classList.add('hidden');
         }
     }

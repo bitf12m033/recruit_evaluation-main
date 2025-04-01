@@ -112,18 +112,11 @@
     --->
 </head>
 <body>
-    <div class="container">
-        <header class="page-header">
-            <h1>Lift Management System</h1>
-        </header>
-    </div>
+    
 
     <main class="main-content">
         <div class="lifts-container">
-            <div class="lifts-header">
-                <h2>Lift Operations</h2>
-                <button id="add_lift_btn" class="btn btn-primary">Add New Lift</button>
-            </div>
+            
             <div class="lifts-table-container">
                 <table id="lifts_table" class="data-table">
                 <thead>
