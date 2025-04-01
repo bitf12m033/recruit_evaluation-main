@@ -136,31 +136,51 @@
                     <table id="lifts_table" class="data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Company</th>
-                                <th>Equipment Type</th>
+                                <th>Lift Company</th>
+                                <th>Equip Type</th>
                                 <th>Delivery Date</th>
-                                <th>Status</th>
+                                <th>End Date</th>
+                                <th>Notes</th>
+                                <th>Inv #</th>
+                                <th>Inv Amt</th>
+                                <th>Release Date</th>
+                                <th>Release #</th>
+                                <th>Released By</th>
+                                <th>Created</th>
+                                <th>Created By</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <cfoutput query="qLifts">
                                 <tr>
-                                    <td>#id#</td>
                                     <td>#liftcompany#</td>
                                     <td>#equipmenttype#</td>
                                     <td>#dateTimeFormat(deliverydate, "mm/dd/yyyy")#</td>
+                                    <td>#dateTimeFormat(enddate, "mm/dd/yyyy")#</td>
+                                    <td>#notes#</td>
                                     <td>
-                                        <cfif closedate neq "">
-                                            <span class="status-badge status-closed">Closed</span>
-                                        <cfelse>
-                                            <span class="status-badge status-open">Open</span>
+                                        <cfif len(invoicenumber)>
+                                            <a href="##" onclick="viewInvoice('#invoicenumber#')">#invoicenumber#</a>
                                         </cfif>
                                     </td>
+                                    <td>#dollarFormat(finalinvoiceamount)#</td>
+                                    <td>#dateTimeFormat(releasedate, "mm/dd/yyyy")#</td>
+                                    <td>#releasenumber#</td>
+                                    <td>#releasewith#</td>
+                                    <td>#dateTimeFormat(created, "mm/dd/yyyy")#</td>
+                                    <td>#createdby#</td>
                                     <td>
-                                        <button class="btn btn-sm btn-edit" data-lift-id="#id#">Edit</button>
-                                        <button class="btn btn-sm btn-delete" data-lift-id="#id#">Delete</button>
+                                        <div style="float:left" class="ui-state-default ui-corner-all" title="Edit Lift">
+                                            <a href="##" onclick="editLift(#id#)">
+                                                <span class="ui-icon ui-icon-pencil"></span>
+                                            </a>
+                                        </div>
+                                        <div style="float:left; margin-left:10px" class="ui-state-default ui-corner-all" title="Cancel Lift">
+                                            <a href="##" onclick="deleteLift(#id#)">
+                                                <span class="ui-icon ui-icon-close"></span>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             </cfoutput>
