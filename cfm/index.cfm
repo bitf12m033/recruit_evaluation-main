@@ -98,7 +98,7 @@
     <!--- Stylesheets --->
     <link rel="stylesheet" href="assets/styles.css">
     <!--- JavaScript --->
-   
+    <script src="assets/app.js"></script>
     <!---
         <cfoutput>
             <link rel="stylesheet" type="text/css" href="assets/jquery-ui-1.8.16.custom.css">
@@ -110,12 +110,20 @@
             <script type="text/javascript" charset="utf-8" src="assets/TableTools.min.js"></script>
         </cfoutput>
     --->
-  
 </head>
 <body>
+    <div class="container">
+        <header class="page-header">
+            <h1>Lift Management System</h1>
+        </header>
+    </div>
 
     <main class="main-content">
         <div class="lifts-container">
+            <div class="lifts-header">
+                <h2>Lift Operations</h2>
+                <button id="add_lift_btn" class="btn btn-primary">Add New Lift</button>
+            </div>
             <div class="lifts-table-container">
                 <table id="lifts_table" class="data-table">
                 <thead>
@@ -175,7 +183,7 @@
                             <td valign="top">#qLifts.releasewith#</td>
                             <td valign="top">#DateFormat(qLifts.Created,'mm/dd/yy')# #timeformat(qLifts.Created,"hh:mm tt")#</td>
                             <td valign="top">#qLifts.createdby#</td>
-                            <td valign="top">
+                            <td align="center">
                                 <div class="action-buttons">
                                     <button class="action-btn edit-btn" data-lift-id="#qLifts.id#" title="Edit Lift">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -210,7 +218,7 @@
                     <tr>
                         <td width="25%">Lift Company</td>
                         <td id="lift_comp">
-                            <select id="lift_company" name="lift_company" onChange="displayPhone(this.value)">
+                            <select id="lift_company" onChange="displayPhone(this.value)">
                                 <option value="" style="padding:4px;">- Select -</option>
                                 <cfoutput query="qliftcompanies">
                                     <option style="padding:4px;" value="#qliftcompanies.companyname#" data-liftvendorid="#qliftcompanies.ID#" data-phone="#qliftcompanies.companyphone#"
@@ -230,7 +238,7 @@
                     <tr id="disp_vendor">
                         <td width="25%">Field-Tech:</td>
                         <td width="75%">
-                            <select id="lift_vendor" name="lift_vendor">
+                            <select id="lift_vendor">
                                 <option value="" style="padding:4px;">- Select -</option>
                                 <cfoutput query="qVendors">
                                     <option style="padding:4px;" value="#qVendors.Name#" data-liftvendorid="#qVendors.VendorNumber#">
@@ -243,7 +251,7 @@
                     <tr>
                         <td>Equipment Type:</td>
                         <td>
-                            <select id="equipment_type" name="equipment_type">
+                            <select id="equipment_type">
                                 <option value="" style="padding:4px;">- Select -</option>
                                 <option value="1" style="padding:4px;">19' Scissor Lift STD</option>
                                 <option value="2" style="padding:4px;">20' Scissor Lift STD</option>
@@ -256,28 +264,28 @@
                     </tr>
                     <tr>
                         <td>Quantity:</td>
-                        <td><input id="qty" name="qty" type="number" value="1" min="1" required style="width:50px;" /></td>
+                        <td><input id="qty" type="text" value="1" style="width:50px;" DISABLED /></td>
                     </tr>
                     <tr>
                         <td>Estimated Cost:</td>
-                        <td><input id="est_cost" name="est_cost" type="text" value="" required pattern="^\d+(\.\d{1,2})?$" style="width:80px;" /></td>
+                        <td><input id="est_cost" type="text" value="" style="width:80px;" oninput="formatEstCost(this)" /></td>
                     </tr>
                     <tr>
                         <td>Confirmation #:</td>
-                        <td><input id="conf_number" name="conf_number" type="text" value="" required maxlength="50" style="width:120px;" /></td>
+                        <td><input id="conf_number" type="text" value="" style="width:120px;" /></td>
                     </tr>
                     <tr>
                         <td>Delivery Date</td>
-                        <td><input id="delivery_date" name="delivery_date" type="text" value="" required style="width:80px;" readonly /></td>
+                        <td><input id="delivery_date" type="text" value="" style="width:80px;" readonly /></td>
                     </tr>
                     <tr>
                         <td>End Date</td>
-                        <td><input id="end_date" name="end_date" type="text" value="" required style="width:80px;" readonly /></td>
+                        <td><input id="end_date" type="text" value="" style="width:80px;" readonly /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             Lift Order Notes:<br>
-                            <textarea id="notes" name="notes" maxlength="1000" style="width:480px;height:60px;"></textarea>
+                            <textarea id="notes" style="width:480px;height:60px;"></textarea>
                         </td>
                     </tr>
                     </table>
@@ -290,13 +298,13 @@
                     <table width="100%" cellspacing="5" cellpadding="5">
                         <tr>
                             <td width="25%">Release Date:</td>
-                            <td><input id="rls_date" name="rls_date" type="text" value="" style="width:80px;" readonly /></td>
+                            <td><input id="rls_date" type="text" value="" style="width:80px;" readonly /></td>
                             <td>Release With:</td>
-                            <td><input id="release_with" name="release_with" type="text" value="" maxlength="100" style="width:120px;" /></td>
+                            <td><input id="release_with" type="text" value="" style="width:120px;" /></td>
                         </tr>
                         <tr class="rls">
                             <td>Release #:</td>
-                            <td colspan="3"><input id="release_number" name="release_number" type="text" value="" maxlength="50" style="width:160px;" /></td>
+                            <td colspan="3"><input id="release_number" type="text" value="" style="width:160px;" /></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -306,6 +314,5 @@
     </div>
 
 
-    <script src="assets/app.js"></script>
 </body>
 </html>
