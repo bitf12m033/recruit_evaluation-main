@@ -201,40 +201,40 @@
         </div>
     </main>
 
-    <div id="lift_info" style="display:none;padding:5px">
+    <div id="lift_info">
         <div class="background-container">
             <div id="lift_closed" class="alert"></div>
             <div>
                 <fieldset class="fs">
                     <legend class="leg">Lift</legend>
-                    <table width="100%" cellspacing="5" cellpadding="5">
+                    <table class="table-layout">
                     <tr>
-                        <td width="25%">Lift Company</td>
-                        <td id="lift_comp">
-                            <select id="lift_company" onChange="displayPhone(this.value)">
-                                <option value="" style="padding:4px;">- Select -</option>
+                        <td class="table__cell--label">Lift Company</td>
+                        <td class="table__cell--full">
+                            <select id="lift_company" class="form-select" onChange="displayPhone(this.value)">
+                                <option value="" class="select-option">- Select -</option>
                                 <cfoutput query="qliftcompanies">
-                                    <option style="padding:4px;" value="#qliftcompanies.companyname#" data-liftvendorid="#qliftcompanies.ID#" data-phone="#qliftcompanies.companyphone#"
-                                                data-acctno="#qliftcompanies.accountnumber#" data-webURL="#qliftcompanies.WebsiteURL#">
+                                    <option class="select-option" value="#qliftcompanies.companyname#" data-liftvendorid="#qliftcompanies.ID#" data-phone="#qliftcompanies.companyphone#"
+                                                data-acctno="#qliftcompanies.accountnumber#" data-weburl="#qliftcompanies.WebsiteURL#">
                                         #qliftcompanies.companyname#
                                     </option>
                                 </cfoutput>
                                 <cfif qVendors.recordcount>
-                                    <option style="padding:4px;" value="FieldTech">Field Tech</option>
+                                    <option class="select-option" value="FieldTech">Field Tech</option>
                                 </cfif>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td id="lift_phone" style="font-weight:800;color:#636363;" colspan="2"></td>
+                        <td id="lift_phone" class="table__cell--phone" colspan="2"></td>
                     </tr>
                     <tr id="disp_vendor">
-                        <td width="25%">Field-Tech:</td>
-                        <td width="75%">
-                            <select id="lift_vendor">
-                                <option value="" style="padding:4px;">- Select -</option>
+                        <td class="table__cell--label">Field-Tech:</td>
+                        <td class="table__cell--full">
+                            <select id="lift_vendor" class="form-select">
+                                <option value="" class="select-option">- Select -</option>
                                 <cfoutput query="qVendors">
-                                    <option style="padding:4px;" value="#qVendors.Name#" data-liftvendorid="#qVendors.VendorNumber#">
+                                    <option class="select-option" value="#qVendors.Name#" data-liftvendorid="#qVendors.VendorNumber#">
                                         #qVendors.Name#
                                     </option>
                                 </cfoutput>
@@ -242,64 +242,80 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Equipment Type:</td>
-                        <td>
-                            <select id="equipment_type">
-                                <option value="" style="padding:4px;">- Select -</option>
-                                <option value="1" style="padding:4px;">19' Scissor Lift STD</option>
-                                <option value="2" style="padding:4px;">20' Scissor Lift STD</option>
-                                <option value="3" style="padding:4px;">26' Scissor Lift STD</option>
-                                <option value="4" style="padding:4px;">20' Articulating Boom</option>
-                                <option value="5" style="padding:4px;">34' Articulating Boom</option>
-                                <option value="6" style="padding:4px;">Other - Specify in Notes</option>
+                        <td class="table__cell--label">Equipment Type:</td>
+                        <td class="table__cell--full">
+                            <select id="equipment_type" class="form-select">
+                                <option value="" class="select-option">- Select -</option>
+                                <option value="1" class="select-option">19' Scissor Lift STD</option>
+                                <option value="2" class="select-option">20' Scissor Lift STD</option>
+                                <option value="3" class="select-option">26' Scissor Lift STD</option>
+                                <option value="4" class="select-option">20' Articulating Boom</option>
+                                <option value="5" class="select-option">34' Articulating Boom</option>
+                                <option value="6" class="select-option">Other - Specify in Notes</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td>Quantity:</td>
-                        <td><input id="qty" type="text" value="1" style="width:50px;" DISABLED /></td>
+                        <td class="table__cell--label">Quantity:</td>
+                        <td class="table__cell--full">
+                            <input id="qty" type="text" value="1" class="form-input input-width-50" disabled />
+                        </td>
                     </tr>
                     <tr>
-                        <td>Estimated Cost:</td>
-                        <td><input id="est_cost" type="text" value="" style="width:80px;" oninput="formatEstCost(this)" /></td>
+                        <td class="table__cell--label">Estimated Cost:</td>
+                        <td class="table__cell--full">
+                            <input id="est_cost" type="text" value="" class="form-input input-width-80" oninput="formatEstCost(this)" />
+                        </td>
                     </tr>
                     <tr>
-                        <td>Confirmation #:</td>
-                        <td><input id="conf_number" type="text" value="" style="width:120px;" /></td>
+                        <td class="table__cell--label">Confirmation #:</td>
+                        <td class="table__cell--full">
+                            <input id="conf_number" type="text" value="" class="form-input input-width-120" />
+                        </td>
                     </tr>
                     <tr>
-                        <td>Delivery Date</td>
-                        <td><input id="delivery_date" type="text" value="" style="width:80px;" readonly /></td>
+                        <td class="table__cell--label">Delivery Date</td>
+                        <td class="table__cell--full">
+                            <input id="delivery_date" type="text" value="" class="form-input input-width-80" readonly />
+                        </td>
                     </tr>
                     <tr>
-                        <td>End Date</td>
-                        <td><input id="end_date" type="text" value="" style="width:80px;" readonly /></td>
+                        <td class="table__cell--label">End Date</td>
+                        <td class="table__cell--full">
+                            <input id="end_date" type="text" value="" class="form-input input-width-80" readonly />
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             Lift Order Notes:<br>
-                            <textarea id="notes" style="width:480px;height:60px;"></textarea>
+                            <textarea id="notes" class="textarea-notes"></textarea>
                         </td>
                     </tr>
                     </table>
                 </fieldset>
             </div>
 
-            <div class="lift-detail" style="margin-top:5px;">
+            <div class="lift-detail">
                 <fieldset class="fs">
                     <legend class="leg">Release Lift</legend>
-                    <table width="100%" cellspacing="5" cellpadding="5">
-                        <tr>
-                            <td width="25%">Release Date:</td>
-                            <td><input id="rls_date" type="text" value="" style="width:80px;" readonly /></td>
-                            <td>Release With:</td>
-                            <td><input id="release_with" type="text" value="" style="width:120px;" /></td>
-                        </tr>
-                        <tr class="rls">
-                            <td>Release #:</td>
-                            <td colspan="3"><input id="release_number" type="text" value="" style="width:160px;" /></td>
-                        </tr>
-                    </table>
+                    <div class="release-lift">
+                        <div class="release-lift__row">
+                            <div class="release-lift__group">
+                                <label class="release-lift__label">Release Date:</label>
+                                <input id="rls_date" type="text" value="" class="form-input release-lift__input" readonly />
+                            </div>
+                            <div class="release-lift__group">
+                                <label class="release-lift__label">Release With:</label>
+                                <input id="release_with" type="text" value="" class="form-input release-lift__input" />
+                            </div>
+                        </div>
+                        <div class="release-lift__row rls">
+                            <div class="release-lift__group">
+                                <label class="release-lift__label">Release #:</label>
+                                <input id="release_number" type="text" value="" class="form-input release-lift__input--full" />
+                            </div>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
         </div>
